@@ -86,7 +86,7 @@
             <div class="accordion-header"><h2>Contact Me</h2></div>
             <div class="accordion-panel">
                 <p>Have a question or want to get in touch? Fill out the form below and I'll get back to you as soon as possible.</p>
-                <form id="contact-form" class="contact-form">
+                <form id="contact-form" class="contact-form" action="https://formspree.io/f/mzzlggbe" method="POST">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
 
@@ -135,41 +135,6 @@
             });
         });
 
-        // Contact form submission script
-        const form = document.getElementById('contact-form');
-        const formStatus = document.getElementById('form-status');
-
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
-            formStatus.style.display = 'block';
-            formStatus.className = '';
-            formStatus.textContent = 'Sending...';
-
-            try {
-                const response = await fetch('/send-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
-                    formStatus.className = 'success';
-                    formStatus.textContent = 'Email sent successfully!';
-                    form.reset();
-                } else {
-                    formStatus.className = 'error';
-                    formStatus.textContent = `Failed to send email: ${result.message}`;
-                }
-            } catch (error) {
-                formStatus.className = 'error';
-                formStatus.textContent = 'An error occurred. Please try again later.';
-            }
-        });
     </script>
 
 </body>
