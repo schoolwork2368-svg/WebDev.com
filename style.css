@@ -236,14 +236,24 @@ code {
     border: none;
     text-align: left;
     outline: none;
-    font-size: 1.75rem;
     transition: background-color 0.3s ease;
     position: relative;
+    display: flex;
+    flex-direction: column; /* Stack icon above title */
+    align-items: flex-start; /* Align icon and title to the left */
+}
+
+.header-icon {
+    width: 1.25em;
+    height: 1.25em;
+    flex-shrink: 0;
+    stroke-width: 2;
+    color: var(--accent-color);
 }
 
 .accordion-header h1, .accordion-header h2 {
     margin: 0;
-    padding-right: 30px; /* Space for the icon */
+    /* Removed padding-right as the arrow is absolutely positioned and won't interfere with text flow */
 }
 
 .accordion-header::after {
@@ -251,8 +261,8 @@ code {
     font-size: 1.5rem;
     color: var(--text-secondary);
     position: absolute;
-    right: 5px;
-    top: 1rem;
+    right: 0;
+    top: 0;
     transform: rotate(90deg);
     transition: transform 0.3s ease;
 }

@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Web Dev Hub</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .contact-form {
+    <style>        .contact-form {
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -49,7 +48,7 @@
             background-color: #991b1b; /* Red */
             color: #fee2e2;
         }
-    </style>
+    </style>    
 </head>
 <body>
 
@@ -84,14 +83,14 @@
 
     <main class="container">
         <div class="content-card">
-            <div class="accordion-header"><h2>Contact Me</h2></div>
+            <div class="accordion-header">
+                <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <h2>Contact Me</h2></div>
             <div class="accordion-panel">
                 <p>Have a question or want to get in touch? Fill out the form below and I'll get back to you as soon as possible.</p>
-<form id="contact-form" class="contact-form" action="https://formspree.io/f/mzzlggbe" method="POST">
-                
-                <!-- 
-                  IMPORTANT: Replace YOUR_UNIQUE_ID with your actual Formspree endpoint ID.
-                -->
                 <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -108,31 +107,56 @@
         </div>
     </main>
 
+    <button class="back-to-top" id="backToTopBtn">↑</button>
+
     <script>
-        // Standard menu and search toggle script
         const menuToggle = document.getElementById('menu-toggle');
         const dropdownMenu = document.getElementById('dropdown-menu');
-        menuToggle.addEventListener('click', (event) => { event.stopPropagation(); dropdownMenu.classList.toggle('show'); });
-        document.addEventListener('click', (event) => { if (!dropdownMenu.contains(event.target) && !menuToggle.contains(event.target)) dropdownMenu.classList.remove('show'); });
+        const searchToggle = document.getElementById('search-toggle');
+        const searchContainer = document.getElementById('search-container');
 
-        // Accordion Script
+        menuToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!dropdownMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                if (dropdownMenu.classList.contains('show')) {
+                    dropdownMenu.classList.remove('show');
+                }
+            }
+            if (!searchContainer.contains(event.target) && !searchToggle.contains(event.target)) {
+                if (searchContainer.classList.contains('show')) {
+                    searchContainer.classList.remove('show');
+                }
+            }
+        });
+
+        searchToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            searchContainer.classList.toggle('show');
+        });
+
         const accordions = document.querySelectorAll('.accordion-header');
-
         accordions.forEach(accordion => {
             accordion.addEventListener('click', function() {
                 this.classList.toggle('active');
                 const panel = this.nextElementSibling;
-
-                if (panel.style.maxHeight && panel.style.maxHeight !== '0px') { // Panel is open, closing it
+                if (panel.style.maxHeight && panel.style.maxHeight !== '0px') {
                     panel.style.maxHeight = panel.scrollHeight + "px";
                     requestAnimationFrame(() => {
                         panel.style.maxHeight = "0";
                         panel.style.padding = "0";
                     });
-                } else { // Panel is closed, opening it
+                } else {
                     panel.style.padding = "1rem 0";
-                    panel.style.maxHeight = panel.scrollHeight + "px";
-                    // Add a listener to remove max-height after transition for content resizing
+                    panel.style.maxHeight = "none";
+                    const fullHeight = panel.scrollHeight;
+                    panel.style.maxHeight = "0";
+                    requestAnimationFrame(() => {
+                        panel.style.maxHeight = fullHeight + "px";
+                    });
                     panel.addEventListener('transitionend', () => {
                         if (panel.style.maxHeight !== '0px') panel.style.maxHeight = 'none';
                     }, { once: true });
@@ -140,6 +164,32 @@
             });
         });
 
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+
+        // The contact page doesn't have searchable content cards, so we can disable search or just ensure it doesn't error.
+        function performSearch() {
+            // Redirect to home page with search query
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+
+        searchInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') performSearch(); });
+        searchButton.addEventListener('click', performSearch);
+
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>
