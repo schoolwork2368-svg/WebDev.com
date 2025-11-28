@@ -172,25 +172,5 @@
             }
         });
     </script>
-Merge branch 'main' of https://github.com/schoolwork2368-svg/WebDev.com
-
-# Please enter a commit message to explain why this merge is necessary...
-
-</body>const response = await fetch('/send-email', {
-    method: 'POST',app.post('/send-email', async (req, res) => {
-        // ...
-        let info = await transporter.sendMail({
-            from: `"Web Dev Hub Contact" <${process.env.EMAIL_USER}>`,
-            to: process.env.EMAIL_USER, // It sends the email to you
-            subject: `New Contact Form Submission from `,
-            text: `You have a new message from...`,
-        });
-        // ...
-    });
-    
-    // ...
-});
-
-</html>
 </body>
 </html>
