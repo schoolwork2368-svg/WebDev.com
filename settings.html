@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Settings - Web Dev Hub</title>
     <link rel="stylesheet" href="style.css">
     <style>
@@ -10,12 +11,19 @@
             scroll-behavior: smooth;
         }
     </style>
+=======
+    <title>Web Dev Concepts</title>
+    <link rel="stylesheet" href="style.css">
+>>>>>>> 6fad7648bf82c122480202e9f7500057869b24a8
 </head>
 <body>
 
     <nav class="navbar">
         <a href="index.html" class="navbar-brand">Web Dev Hub</a>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6fad7648bf82c122480202e9f7500057869b24a8
         <div class="nav-right-section">
             <div class="search-container" id="search-container">
                 <input type="text" class="search-input" id="search-input" placeholder="Search..." aria-label="Search through site content">
@@ -26,7 +34,10 @@
                     </svg>
                 </button>
             </div>
+<<<<<<< HEAD
     
+=======
+>>>>>>> 6fad7648bf82c122480202e9f7500057869b24a8
             <div class="nav-controls">
                 <button class="search-toggle" id="search-toggle" title="Toggle search bar" aria-label="Toggle search bar">
                      <svg class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -36,13 +47,21 @@
                 </button>
                 <div class="menu-container">
                     <button class="menu-toggle" id="menu-toggle" title="Toggle navigation menu" aria-label="Toggle navigation menu">
+<<<<<<< HEAD
                         <svg class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+=======
+                        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+>>>>>>> 6fad7648bf82c122480202e9f7500057869b24a8
                             <path d="M4 6H20M4 12H20M4 18H20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                     <ul class="dropdown-menu" id="dropdown-menu">
                         <li class="dropdown-item"><a href="index.html">Home</a></li>
+<<<<<<< HEAD
                         <li class="dropdown-item"><a href="servers.html">Frontend &amp; Backend</a></li>
+=======
+                        <li class="dropdown-item"><a href="servers.html">Frontend & Backend</a></li>
+>>>>>>> 6fad7648bf82c122480202e9f7500057869b24a8
                         <li class="dropdown-item"><a href="databases.html">Databases</a></li>
                         <li class="dropdown-item"><a href="frameworks.html">Frameworks</a></li>
                         <li class="dropdown-item"><a href="engines.html">Engines</a></li>
@@ -58,6 +77,7 @@
 
     <main class="container">
         <div class="content-card">
+<<<<<<< HEAD
             <div class="accordion-header"><h2>Settings</h2></div>
             <div class="accordion-panel">
                 <p>
@@ -65,23 +85,174 @@
                 </p>
             </div>
         </div>
+=======
+            <div class="accordion-header"><h2>Appearance</h2></div>
+            <div class="accordion-panel">
+                <p>Customize the look and feel of the website.</p>
+                <div class="setting-item">
+                    <label for="theme-select">Theme:</label>
+                    <select id="theme-select" class="setting-control">
+                        <option value="dark">Dark Mode</option>
+                        <option value="light" disabled>Light Mode (Coming Soon)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="accordion-header"><h2>Accessibility</h2></div>
+            <div class="accordion-panel">
+                <p>Adjust settings to improve your browsing experience.</p>
+                <div class="setting-item">
+                    <label for="font-size-slider">Font Size:</label>
+                    <input type="range" id="font-size-slider" class="setting-control" min="80" max="120" value="100" step="10">
+                    <span id="font-size-value">100%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-card" id="no-results-card" style="display: none;"><p class="no-results">No matching content found.</p></div>
+>>>>>>> 6fad7648bf82c122480202e9f7500057869b24a8
     </main>
 
     <script>
         const menuToggle = document.getElementById('menu-toggle');
         const dropdownMenu = document.getElementById('dropdown-menu');
+<<<<<<< HEAD
 
         menuToggle.addEventListener('click', (event) => {
+=======
+        const searchToggle = document.getElementById('search-toggle');
+        const searchContainer = document.getElementById('search-container');
+
+        menuToggle.addEventListener('click', (event) => {
+            // Stop the click from bubbling up to the document
+>>>>>>> 6fad7648bf82c122480202e9f7500057869b24a8
             event.stopPropagation();
             dropdownMenu.classList.toggle('show');
         });
 
         document.addEventListener('click', (event) => {
+<<<<<<< HEAD
+=======
+            // Close dropdown if clicking outside
+>>>>>>> 6fad7648bf82c122480202e9f7500057869b24a8
             if (!dropdownMenu.contains(event.target) && !menuToggle.contains(event.target)) {
                 if (dropdownMenu.classList.contains('show')) {
                     dropdownMenu.classList.remove('show');
                 }
             }
+<<<<<<< HEAD
+=======
+            // Close search if clicking outside
+            if (!searchContainer.contains(event.target) && !searchToggle.contains(event.target)) {
+                if (searchContainer.classList.contains('show')) {
+                    searchContainer.classList.remove('show');
+                }
+            }
+        });
+
+        // Toggle search bar on small screens
+        searchToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            searchContainer.classList.toggle('show');
+        });
+
+        // Accordion Script
+        const accordions = document.querySelectorAll('.accordion-header');
+
+        accordions.forEach(accordion => {
+            accordion.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const panel = this.nextElementSibling;
+
+                if (panel.style.maxHeight && panel.style.maxHeight !== '0px') { // Panel is open, closing it
+                    // Set max-height to its current scrollHeight before transitioning to 0
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                    panel.style.padding = "1rem 0"; // Ensure padding is present for scrollHeight calculation
+                    requestAnimationFrame(() => {
+                        panel.style.maxHeight = "0";
+                        panel.style.padding = "0";
+                    });
+                } else {
+                    panel.style.padding = "1rem 0";
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const contentCards = document.querySelectorAll('.content-card:not(#no-results-card)');
+        const noResultsCard = document.getElementById('no-results-card');
+
+        function performSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+            let resultsFound = false;
+
+            if (query === '') {
+                contentCards.forEach(card => card.style.display = 'block');
+                noResultsCard.style.display = 'none';
+                return;
+            }
+
+            contentCards.forEach(card => {
+                const header = card.querySelector('.accordion-header');
+                const headerText = header ? header.innerText.toLowerCase() : '';
+                const isMatch = headerText.includes(query);
+
+                card.style.display = isMatch ? 'block' : 'none';
+
+                if (isMatch) {
+                    resultsFound = true;
+                }
+            });
+
+            // Show or hide the 'no results' message
+            noResultsCard.style.display = resultsFound ? 'none' : 'block';
+        }
+
+        // Listen for typing in the search bar
+        searchInput.addEventListener('keyup', performSearch);
+
+        // Also allow search on button click
+        searchButton.addEventListener('click', performSearch);
+
+        // Prevent form submission if the search is inside a form
+        searchButton.addEventListener('click', (e) => e.preventDefault());
+    </script>
+
+    <script>
+        // Settings-specific script
+        const fontSizeSlider = document.getElementById('font-size-slider');
+        const fontSizeValue = document.getElementById('font-size-value');
+        fontSizeSlider.addEventListener('input', () => {
+            fontSizeValue.textContent = `${fontSizeSlider.value}%`;
+        });
+    </script>
+
+    <button class="back-to-top" id="backToTopBtn">↑</button>
+
+    <script>
+        const backToTopBtn = document.getElementById('backToTopBtn');
+
+        // Show button when user scrolls down
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show button after scrolling 300px
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        // Scroll to top when button is clicked
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // For a smooth scrolling animation
+            });
+>>>>>>> 6fad7648bf82c122480202e9f7500057869b24a8
         });
     </script>
 
