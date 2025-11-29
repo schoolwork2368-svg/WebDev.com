@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Dev Concepts</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        // Apply theme from localStorage before the page loads to prevent flashing
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') document.documentElement.classList.add('light-mode');
+    </script>
 </head>
 <body>
 
@@ -68,34 +73,15 @@
             <div class="accordion-panel">
                 <p>Customize the look and feel of the website.</p>
                 <div class="setting-item">
-                    <label for="theme-select">Theme:</label>
-                    <select id="theme-select" class="setting-control">
-                        <option value="dark">Dark Mode</option>
-                        <option value="light" disabled>Light Mode (Coming Soon)</option>
-                    </select>
+                    <label for="theme-switch">Light Mode</label>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider"></span>
+                    </label>
                 </div>
             </div>
         </div>
 
-        <div class="content-card">
-            <div class="accordion-header">
-                <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="M12 16v-4"></path>
-                    <path d="M12 8h.01"></path>
-                </svg>
-                <h2>Accessibility</h2>
-            </div>
-            <div class="accordion-panel">
-                <p>Adjust settings to improve your browsing experience.</p>
-                <div class="setting-item">
-                    <label for="font-size-slider">Font Size:</label>
-                    <input type="range" id="font-size-slider" class="setting-control" min="80" max="120" value="100" step="10">
-                    <span id="font-size-value">100%</span>
-                </div>
-            </div>
-        </div>
-        
         <div class="content-card" id="no-results-card" style="display: none;"><p class="no-results">No matching content found.</p></div>
     </main>
 
@@ -188,11 +174,21 @@
         }
 
         // Settings-specific script
-        const fontSizeSlider = document.getElementById('font-size-slider');
-        const fontSizeValue = document.getElementById('font-size-value');
-        if(fontSizeSlider && fontSizeValue) {
-            fontSizeSlider.addEventListener('input', () => {
-                fontSizeValue.textContent = `${fontSizeSlider.value}%`;
+        const themeSwitch = document.getElementById('theme-switch');
+
+        // Theme switcher logic
+        if (themeSwitch) {
+            // Set initial state of the switch based on current theme
+            themeSwitch.checked = document.documentElement.classList.contains('light-mode');
+
+            themeSwitch.addEventListener('change', () => {
+                if (themeSwitch.checked) {
+                    document.documentElement.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.classList.remove('light-mode');
+                    localStorage.setItem('theme', 'dark');
+                }
             });
         }
 

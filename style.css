@@ -11,6 +11,16 @@
     --accent-hover: #2563eb;  /* Darker blue for hover */
 }
 
+html.light-mode body {
+    --bg-dark: #f3f4f6;       /* Light grey background */
+    --bg-card: #ffffff;       /* White card background */
+    --border-color: #d1d5db;  /* Lighter border color */
+    --text-primary: #111827;  /* Dark text color */
+    --text-secondary: #4b5563;/* Subdued dark text color */
+    --accent-color: #3b82f6;
+    --accent-hover: #2563eb;
+}
+
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
@@ -74,7 +84,7 @@ body {
 .search-icon {
     width: 13px;
     height: 13px;
-    stroke: black;
+    stroke: var(--text-primary);
 }
 
 .search-container {
@@ -121,6 +131,7 @@ body {
     padding: 0.5rem 0;
     min-width: 200px;
     overflow: hidden;
+    z-index: 1000; /* Ensure dropdown appears above other elements like the search bar */
 }
 
 .dropdown-menu.show {
@@ -180,7 +191,7 @@ h2 {
 }
 
 p {
-    color: #ffffff;
+    color: var(--text-primary);
     margin-bottom: 1rem;
 }
 
@@ -337,4 +348,62 @@ code {
 .back-to-top.show {
     opacity: 1;
     visibility: visible;
+}
+
+/* --- Settings Page Toggle Switch --- */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--accent-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
 }
